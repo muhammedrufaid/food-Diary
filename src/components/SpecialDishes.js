@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CardDish from "./CardDish";
 import Popup from "./Popup";
+//step 4
+import {AllMenuContext} from "./Menus";
+
 
 function SpecialDishes(props) {
   // console.log("props are :", props.specialMenu);
@@ -8,6 +11,10 @@ function SpecialDishes(props) {
  const [showPopUP, setShowPopUP] = useState(false) //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
  const [currentDish, setCurrentDish] = useState('') //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
  
+ //step 5
+ const allMenus =  useContext(AllMenuContext)
+ console.log("Global state menus are here now : ",allMenus);
+
  // Lets show the popup
  function showPopUPHandler(dishName){ //parameter aayi recieve cheythu cardil ninnu //itu cheyunnath popup il aa name disply cheyikkan vendiyan
   // console.log(dishName);
@@ -24,7 +31,9 @@ function SpecialDishes(props) {
 
   let maxSpecialDishes = 8;
 
-  let specialMenus = props.specialMenu.map((menuItem,index) => {
+  // let specialMenus = props.specialMenu.map((menuItem,index) => {
+                      //step6
+  let specialMenus = allMenus.map((menuItem,index) => {
     if(index < maxSpecialDishes){  //index currently -0 aanu
         return (
           // <li>
@@ -44,7 +53,8 @@ function SpecialDishes(props) {
       {showPopUP && <Popup 
                       closePopUp={closePopUPHandler}
                       currentDish={currentDish}
-                      allDishes = {props.specialMenu}
+                      // allDishes = {props.specialMenu}
+                      // allDishes = {allMenus} //ithu props vayi ayakkunath oyvakit direct context upayogichu data pass cheyyum
                     ></Popup>} {/* circuit method aa ithinu pareyuka ithinu artham showpopup true aanel popup kaanikuka*/}
       <div className="container">
         <div className="special-dishes-content text-center">

@@ -1,7 +1,8 @@
 // import React, { useState, useEffect } from "react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Pagination from "./Pagination";
 import CardDish from "./CardDish";
+import {AllMenuContext} from './Menus'
 
 function FilteredDishes(props) {
   // console.log("All menus", props.allMenus);
@@ -9,7 +10,9 @@ function FilteredDishes(props) {
   // console.log("single Dish props", props.singleDish);
   console.log("single Dish props", props.setSingleDish);
 
-  const [allMenus, setAllMenus] = useState(props.allMenus);
+  let allMenus = useContext(AllMenuContext)
+
+  // const [allMenus, setAllMenus] = useState(props.allMenus);
   const [filteredDishes, setFilteredDishes] = useState([]);
   const [activeDish, setActiveDish] = useState("Beef"); //active dishes il athyam thanne active aayi kedakendath beef aanu so beef koduht
   const [currentPage, setCurrentPage] = useState(1); //current pageil active aayi nikkendath 1 aanu so 1 kodukkum ,cuurentpageil maarunathinanusrichu njmla dishes maarenm athinuvendi setCurrentPage upayogikum

@@ -1,23 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import CardDish from "./CardDish";
+import Popup from "./Popup";
 
 function SpecialDishes(props) {
   // console.log("props are :", props.specialMenu);
+
+ const [showPopUP, setShowPopUP] = useState(false) //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
+ const [currentDish, setCurrentDish] = useState('') //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
+ 
+ // Lets show the popup
+ function showPopUPHandler(dishName){ //parameter aayi recieve cheythu cardil ninnu //itu cheyunnath popup il aa name disply cheyikkan vendiyan
+  // console.log(dishName);
+   setShowPopUP(true)
+   setCurrentDish(dishName)
+
+  }
+  
+  // Lets close the popup
+  function closePopUPHandler(){
+    setShowPopUP(false)
+  }
+
 
   let maxSpecialDishes = 8;
 
   let specialMenus = props.specialMenu.map((menuItem,index) => {
     if(index < maxSpecialDishes){  //index currently -0 aanu
         return (
-          <li>
-            <img src={menuItem.strMealThumb} alt="" className="br-10"/>
-            <h5>{menuItem.strMeal}</h5>
-          </li>
+          // <li>
+          //   <img src={menuItem.strMealThumb} alt="" className="br-10"/>
+          //   <h5>{menuItem.strMeal}</h5>
+          // </li>
+          <CardDish
+           menuItem={menuItem}
+           showPopup={showPopUPHandler}
+          />
         );
     }
   });
 
   return (
     <section className="special-dishes">
+      {showPopUP && <Popup 
+                      closePopUp={closePopUPHandler}
+                      currentDish={currentDish}
+                      allDishes = {props.specialMenu}
+                    ></Popup>} {/* circuit method aa ithinu pareyuka ithinu artham showpopup true aanel popup kaanikuka*/}
       <div className="container">
         <div className="special-dishes-content text-center">
           <h2>Our Special Dishes</h2>

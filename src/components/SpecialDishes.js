@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react";
 import CardDish from "./CardDish";
 import Popup from "./Popup";
 //step 4
-import {AllMenuContext} from "./Menus";
+// import {AllMenuContext} from "./Menus";
+import {AllMenuContext} from "./AllMenuContext";
+import AddTocart from "./AddToCart";
 
 
 function SpecialDishes(props) {
@@ -10,7 +12,11 @@ function SpecialDishes(props) {
 
  const [showPopUP, setShowPopUP] = useState(false) //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
  const [currentDish, setCurrentDish] = useState('') //false kodukkan kaarenm njmk page load aayi verumbol thanne popup kaanikenda so njml false koduthu
- 
+//  const [addToCartItem,setAddToCartItem] = useState([{ }])  //imagineyum title neyu edukkan vendi array of objects create cheythu
+ const [addToCartItem,setAddToCartItem] = useState([])  //njml object ne oyvaki kaarenm njmk empty aayt addtocart il kaanikum so njml verum array aaki
+
+  
+
  //step 5
  const allMenus =  useContext(AllMenuContext)
  console.log("Global state menus are here now : ",allMenus);
@@ -28,6 +34,23 @@ function SpecialDishes(props) {
     setShowPopUP(false)
   }
 
+  //Add to cart handler
+  function addToCartHandler (addToCartImg,addToCartTitle) {
+    // console.log("Add to cart now",addToCartImg,addToCartTitle);
+    // let addToIMg = addToCartImg  //ingane react il kodukkan patilla js kodukkuna pole athinu pakrem njml reactil oru state create cheythu athil vekkukayan cheyyuka  
+    // setAddToCartItem(addToCartImg)
+    setAddToCartItem(
+      [
+      ...addToCartItem,  //spread operator aayi add cheythu athu kodukkmbm illa gunam enthen vechal addtocart il ordernow kodukkbm ellm add aavum 1 imageum mathramella veruka 
+        {
+          "img" : addToCartImg,
+          "title" : addToCartTitle
+        }
+      ]
+    )
+  }
+
+  // console.log("whats inside",addToCartItem);
 
   let maxSpecialDishes = 8;
 
@@ -53,10 +76,12 @@ function SpecialDishes(props) {
       {showPopUP && <Popup 
                       closePopUp={closePopUPHandler}
                       currentDish={currentDish}
+                      addToCartHandler={addToCartHandler}
                       // allDishes = {props.specialMenu}
                       // allDishes = {allMenus} //ithu props vayi ayakkunath oyvakit direct context upayogichu data pass cheyyum
                     ></Popup>} {/* circuit method aa ithinu pareyuka ithinu artham showpopup true aanel popup kaanikuka*/}
-      <div className="container">
+      <div className="container" >
+        <AddTocart  addToCartItem = {addToCartItem}/>
         <div className="special-dishes-content text-center">
           <h2>Our Special Dishes</h2>
           <p>

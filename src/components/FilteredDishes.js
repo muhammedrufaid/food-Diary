@@ -1,14 +1,18 @@
-// import React, { useState, useEffect } from "react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import CardDish from "./CardDish";
-import {AllMenuContext} from './Menus'
+// import {AllMenuContext} from './Menus'
+import {AllMenuContext} from './AllMenuContext'
 
 function FilteredDishes(props) {
   // console.log("All menus", props.allMenus);
   // console.log("All menus categories", props.allMenuCategories);
   // console.log("single Dish props", props.singleDish);
-  console.log("single Dish props", props.setSingleDish);
+  // console.log("single Dish props", props.setSingleDish);
+
+
+  const [menuCategories, setMenuCategories] = useState([]);
+  const [singleDish, setSingleDish] = useState([]);
 
   let allMenus = useContext(AllMenuContext)
 
@@ -17,6 +21,37 @@ function FilteredDishes(props) {
   const [activeDish, setActiveDish] = useState("Beef"); //active dishes il athyam thanne active aayi kedakendath beef aanu so beef koduht
   const [currentPage, setCurrentPage] = useState(1); //current pageil active aayi nikkendath 1 aanu so 1 kodukkum ,cuurentpageil maarunathinanusrichu njmla dishes maarenm athinuvendi setCurrentPage upayogikum
   const [itemsPerPage, setItemsPerPage] = useState(4); 
+
+  //Get all the categories
+  async function getAllThecategories() {
+    const API_URL = "https://www.themealdb.com/api/json/v1/1/categories.php";
+    let response = await fetch(API_URL);
+    let categoryData = await response.json();
+    setMenuCategories(categoryData.categories);
+    // console.log("catdatas",categoryData);
+  }
+
+  //Get only one Dish
+  async function getOnlyOneDish() {
+    const API_URL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef";
+    let response = await fetch(API_URL);
+    let singleDishData = await response.json();
+    setSingleDish(singleDishData.meals);
+    console.log("single dish dta", singleDish);
+  }
+
+  // api call functionil aakit useEffect il vilichu
+  useEffect(() => {
+    // getAllThemenus();
+    getAllThecategories();
+    getOnlyOneDish();
+  }, []);
+
+
+
+
+
+ 
 
   let indexOfLastDish = currentPage * itemsPerPage;
   //  1 * 4  = 4  //current page increment cheythu kodutha mathi
@@ -32,7 +67,8 @@ function FilteredDishes(props) {
 
   //Lets show only single dishes
   let maxItem = 8
-  let singleDishItems = props.singleDish.map((item,index) => {
+  // let singleDishItems = props.singleDish.map((item,index) => {
+  let singleDishItems = singleDish.map((item,index) => {
     if(index < maxItem){
       return (
         <li>
@@ -45,7 +81,8 @@ function FilteredDishes(props) {
 
   // Lets show Dishes onClick
   function showFilteredDishesHandler(category) {
-    props.setSingleDish([])
+    // props.setSingleDish([])
+    setSingleDish([])
     setActiveDish(category);
     let filteredDishesAre = allMenus
       .filter((item) => item.strCategory === category)
@@ -72,7 +109,8 @@ function FilteredDishes(props) {
   //   }, [filteredDishes]);
 
   // Lets show all categories
-  let allcategories = props.allMenuCategories.map((item) => (
+  // let allcategories = props.allMenuCategories.map((item) => (
+  let allcategories = menuCategories.map((item) => (
     // <li key={item.idCategory} onClick={() => showFilteredDishesHandler(item.strCategory)}>
     <li
       className={item.strCategory === activeDish ? "active" : ""}

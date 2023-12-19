@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 //step 7
-import { AllMenuContext } from "./Menus";
+// import { AllMenuContext } from "./Menus";
+import { AllMenuContext } from "./AllMenuContext";
+
 
 // function Popup({ closePopUp, currentDish, allDishes }) {
-function Popup({ closePopUp, currentDish }) {
+function Popup({ closePopUp, currentDish ,addToCartHandler}) {
   // console.log("lets see full dishes here",allDishes);
    
   //step 8
   const allMenus = useContext(AllMenuContext)
+
 
 //   let dishDetails = allDishes
                     //step 9
@@ -33,6 +36,11 @@ function Popup({ closePopUp, currentDish }) {
             <li>{item.strIngredient3}</li>
             <li>{item.strIngredient4}</li>
           </ul>
+        <button  onClick={()=>addToCartHandler(item.strMealThumb,item.strMeal)}>Order Now</button>
+     
+        <h5 className="popup-close" onClick={closePopUp}>
+          Close
+        </h5>
         </div>
       );
     });
@@ -41,10 +49,6 @@ function Popup({ closePopUp, currentDish }) {
       <div className="popup-content">
         {/* <h2>{currentDish}</h2> */}
         {dishDetails} {/* ivde render cheythu */}
-        <button>Order Now</button>
-        <h5 className="popup-close" onClick={closePopUp}>
-          Close
-        </h5>
       </div>
     </div>
   );

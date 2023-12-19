@@ -25,8 +25,7 @@ export const AllMenus = (props) => {
 
   return (
     <AllMenuContext.Provider value={menu}>
-         {!loading ? props.children : <Loader />} {/*ivde specialDishes inu pakrem props.chldren vilichu*/}
-      {/* {props.children} */}
+         {!loading ? props.children : <Loader />} 
     </AllMenuContext.Provider>
   );
 };

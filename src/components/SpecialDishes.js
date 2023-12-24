@@ -31,7 +31,7 @@ function SpecialDishes(props) {
   function addToCartHandler (addToCartImg,addToCartTitle) {
     setAddToCartItem(
       [
-      ...addToCartItem,  //spread operator aayi add cheythu athu kodukkmbm illa gunam enthen vechal addtocart il ordernow kodukkbm ellm add aavum 1 imageum mathramella veruka 
+      ...addToCartItem,  
         {
           "img" : addToCartImg,
           "title" : addToCartTitle
@@ -43,7 +43,7 @@ function SpecialDishes(props) {
   let maxSpecialDishes = 8;
 
   let specialMenus = allMenus.map((menuItem,index) => {
-    if(index < maxSpecialDishes){  //index currently -0 aanu
+    if(index < maxSpecialDishes){  
         return (
           // <li>
           //   <img src={menuItem.strMealThumb} alt="" className="br-10"/>

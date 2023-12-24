@@ -29,13 +29,12 @@ function Popup({ closePopUp, currentDish, addToCartHandler }) {
             <li>{item.strIngredient4}</li>
           </ul>
           <button
-            // onClick={() => addToCartHandler(item.strMealThumb, item.strMeal)}
             onClick={()=>{
               dispatch({type : 'add_to_cart', payload:{
                 title: item.strMeal,
                 img : item.strMealThumb,
                 }
-              }); {/*payload njml object aayi set cheythu kaarenm 2nd value set cheyyenm title um img um */}
+              }); 
             }}
           >
             Order Now

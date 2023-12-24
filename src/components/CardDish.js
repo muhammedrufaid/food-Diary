@@ -5,7 +5,7 @@ function CardDish(props) {
   return (
     <>
          <li>
-            <a href="javaScript:;" onClick={()=>props.showPopup(props.menuItem.strMeal)}> {/*ivde njmk callback unction upayogichu vilikkam enthinnan vechal callback upayogichal mathrame ithilek data pass cheyyan pattullu*/}
+            <a href="javaScript:;" onClick={()=>props.showPopup(props.menuItem.strMeal)}> 
             <img src={props.menuItem.strMealThumb} alt="" className="br-10"/>
             <h5>{props.menuItem.strMeal}</h5>
             </a>

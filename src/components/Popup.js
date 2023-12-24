@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { AllMenuContext } from "./AllMenuContext";
+import { DispatchContext } from "../context/AppProvider";
 
-
-
-function Popup({ closePopUp, currentDish ,addToCartHandler}) {
- 
-  const allMenus = useContext(AllMenuContext)
+function Popup({ closePopUp, currentDish, addToCartHandler }) {
+  const allMenus = useContext(AllMenuContext);
+  const dispatch = useContext(DispatchContext);
+  console.log("this is dispatchii", dispatch);
 
   let dishDetails = allMenus
     .filter((menuItem) => {
@@ -28,18 +28,27 @@ function Popup({ closePopUp, currentDish ,addToCartHandler}) {
             <li>{item.strIngredient3}</li>
             <li>{item.strIngredient4}</li>
           </ul>
-        <button  onClick={()=>addToCartHandler(item.strMealThumb,item.strMeal)}>Order Now</button>
-        <h5 className="popup-close" onClick={closePopUp}>
-          Close
-        </h5>
+          <button
+            // onClick={() => addToCartHandler(item.strMealThumb, item.strMeal)}
+            onClick={()=>{
+              dispatch({type : 'add_to_cart', payload:{
+                title: item.strMeal,
+                img : item.strMealThumb,
+                }
+              }); {/*payload njml object aayi set cheythu kaarenm 2nd value set cheyyenm title um img um */}
+            }}
+          >
+            Order Now
+          </button>
+          <h5 className="popup-close" onClick={closePopUp}>
+            Close
+          </h5>
         </div>
       );
     });
   return (
     <div className="popup">
-      <div className="popup-content">
-        {dishDetails} 
-      </div>
+      <div className="popup-content">{dishDetails}</div>
     </div>
   );
 }

@@ -480,3 +480,26 @@ header {
   }
 }
 
+.checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  text-align: center; 
+}
+
+.checkout div {
+  margin-bottom: 20px; 
+}
+
+.checkout img {
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover; 
+  border-radius: 8px; 
+  box-shadow: 2px 2px 12px rgba(0,0,0, 0.8);
+}
+
+.checkout h6 {
+  margin-top: 10px; /* Add some space between the image and the title */
+}

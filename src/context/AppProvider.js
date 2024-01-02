@@ -19,7 +19,7 @@ const AppProvider = ({children,}) => {
             case "add_to_cart" :
                 return {
                     ...state, 
-                    //cartItems: [...state.cartItems,action.payload.img, action.payload.title] 
+                  
                     cartItems: [...state.cartItems,action.payload], 
                 } 
             default:{
@@ -28,21 +28,18 @@ const AppProvider = ({children,}) => {
         }
     }
 
-    //step 1
+
 let [state,dispatch] =useReducer(reducer,initialState)
-console.log("thisis",state); //state ivde kittunnnd ithilcartItems il img um title um indu athayth njml cartItems il array set aaytund 
+console.log("thisis",state); 
   
     return (
-        // step 6
+       
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>
-                    {/* <h1>This is the App provider</h1> */} {/*ee oru h1 ne mathram ereact kaanullu eni ithinullile children aaytulla header,hero,specialdishes,filteredDishes ithellm konduvernm athinu vendi props.children koduthu */}
-                    {/* {props.children} */}
-                    {children} {/*appProvideril il wrap cheytha contents render aavnenkil children aayt props vayi set cheytu koduknem*/}
+                    {children} 
             </StateContext.Provider>
         </DispatchContext.Provider>
     )
 }
 
 export {AppProvider, DispatchContext,StateContext} ;
-//eni ella itethineyu wrap cheyyenm ennal mathrame ee context ne  menus il ellm kodukkan patullu
